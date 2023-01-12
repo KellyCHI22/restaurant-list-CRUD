@@ -42,7 +42,11 @@
                                 <i class="fa fa-star fa-xs"></i>
                             </span>
                             <div>
-                                <a class="p-0" href="./restaurants/{{ this._id }}/edit">edit</a>
+                                <a class="p-0" href="./restaurants/{{ this._id }}/edit">編輯餐廳</a>
+                                <form action="./restaurants/{{ this._id }}/delete" method="POST"
+                                    style="display: inline;">
+                                    <button type="submit">刪除餐廳</button>
+                                </form>
                             </div>
                         </div>
                     </div>
