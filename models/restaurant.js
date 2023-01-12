@@ -1,19 +1,22 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+
 const restaurantSchema = new Schema({
     name: {
         type: String,
         required: true
     },
     name_en: {
-        type: String
+        type: String,
+        required: true
     },
     category: {
         type: String,
         required: true
     },
     image: {
-        type: String
+        type: String,
+        required: true
     },
     location: {
         type: String,
@@ -28,7 +31,8 @@ const restaurantSchema = new Schema({
         required: true
     },
     rating: {
-        type: Number
+        type: Number,
+        required: true
     },
     description: {
         type: String,
