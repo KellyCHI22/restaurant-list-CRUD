@@ -2,6 +2,8 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+
 const Restaurant = require('./models/restaurant');
 
 if (process.env.NODE_ENV !== 'production') {
@@ -30,6 +32,7 @@ const port = 3000;
 // setting template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // setting static files
 app.use(express.static('public'));
@@ -45,6 +48,16 @@ app.get('/', (req, res) => {
         .catch(error => console.error(error));
 });
 
+app.get('/restaurants/new', (req, res) => {
+    return res.render('new');
+});
+
+app.post('/restaurants', (req, res) => {
+    return Restaurant.create(req.body)
+        .then(() => res.redirect('/'))
+        .catch(err => console.log(err));
+});
+
 // set dynamic routes
 app.get('/restaurants/:restaurant_id', (req, res) => {
     const id = req.params.restaurant_id;
@@ -54,6 +67,7 @@ app.get('/restaurants/:restaurant_id', (req, res) => {
         .catch(error => console.log(error));
 });
 
+// * not refactored yet
 // show search results 
 app.get('/search', (req, res) => {
     let message;
