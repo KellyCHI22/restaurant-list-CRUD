@@ -2,6 +2,7 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
+const Restaurant = require('./models/restaurant');
 
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
@@ -21,7 +22,7 @@ db.once('open', () => {
     console.log('mongodb connected!');
 });
 
-const restaurantList = require('./restaurants.json');
+// const restaurantList = require('./restaurants.json');
 
 const app = express();
 const port = 3000;
@@ -35,8 +36,13 @@ app.use(express.static('public'));
 
 // routes setting
 app.get('/', (req, res) => {
-    const message = `您的清單中有${restaurantList.results.length}間餐廳`;
-    res.render('index', { restaurants: restaurantList.results, message });
+    Restaurant.find()
+        .lean()
+        .then(restaurants => {
+            const message = `您的清單中有${restaurants.length}間餐廳`;
+            res.render('index', { restaurants, message });
+        })
+        .catch(error => console.error(error));
 });
 
 // set dynamic routes
