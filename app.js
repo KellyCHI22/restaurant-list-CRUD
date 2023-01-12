@@ -47,8 +47,11 @@ app.get('/', (req, res) => {
 
 // set dynamic routes
 app.get('/restaurants/:restaurant_id', (req, res) => {
-    const restaurant = restaurantList.results.find(restaurant => restaurant.id.toString() === req.params.restaurant_id);
-    res.render('show', { restaurant });
+    const id = req.params.restaurant_id;
+    return Restaurant.findById(id)
+        .lean()
+        .then((restaurant) => res.render('show', { restaurant }))
+        .catch(error => console.log(error));
 });
 
 // show search results 
