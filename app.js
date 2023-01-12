@@ -1,40 +1,34 @@
 // require packages used in the project
 const express = require('express');
 const exphbs = require('express-handlebars');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+// require restaurant model
 const Restaurant = require('./models/restaurant');
 
+// mongoose stuff
+const mongoose = require('mongoose');
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
-
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set('strictQuery', true);
 
-// 取得資料庫連線狀態
 const db = mongoose.connection;
-// 連線異常
 db.on('error', () => {
     console.log('mongodb error!');
 });
-// 連線成功
 db.once('open', () => {
     console.log('mongodb connected!');
 });
 
-// const restaurantList = require('./restaurants.json');
-
+// app related stuff
 const app = express();
 const port = 3000;
 
-// setting template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// setting static files
 app.use(express.static('public'));
 
 // routes setting
@@ -48,17 +42,19 @@ app.get('/', (req, res) => {
         .catch(error => console.error(error));
 });
 
+// show new page
 app.get('/restaurants/new', (req, res) => {
     return res.render('new');
 });
 
+// create new restaurant
 app.post('/restaurants', (req, res) => {
     return Restaurant.create(req.body)
         .then(() => res.redirect('/'))
         .catch(err => console.log(err));
 });
 
-// set dynamic routes
+// show restaurant by id
 app.get('/restaurants/:restaurant_id', (req, res) => {
     const id = req.params.restaurant_id;
     return Restaurant.findById(id)
@@ -67,7 +63,7 @@ app.get('/restaurants/:restaurant_id', (req, res) => {
         .catch(error => console.log(error));
 });
 
-// page of edit restaurant
+// show edit restaurant page
 app.get("/restaurants/:restaurant_id/edit", (req, res) => {
     const id = req.params.restaurant_id;
     return Restaurant.findById(id)
@@ -94,40 +90,42 @@ app.post('/restaurants/:restaurant_id/delete', (req, res) => {
         .catch(error => console.log(error));
 });
 
-// * not refactored yet
+// todo not refactored yet
 // show search results 
 app.get('/search', (req, res) => {
     let message;
-    // 對字串中的空白進行處理 → replace(/ /g, "")
-    // str.trim() 不會移除中間的空白，只移除前後的空白
-    // str.replaceAll() 在 node.js 15.0.0 後才可使用
     const keyword = req.query.keyword.replace(/ /g, "").toLowerCase();
-    const restaurants = restaurantList.results.filter(restaurant => {
-        const restaurantName = restaurant.name.replace(/ /g, "").toLowerCase();
-        const restaurantEngName = restaurant.name_en.replace(/ /g, "").toLowerCase();
-        const restaurantCategory = restaurant.category.replace(/ /g, "").toLowerCase();
-        return restaurantName.includes(keyword) || restaurantEngName.includes(keyword) || restaurantCategory.includes(keyword);
-    });
-
     // 若輸入為空白，則顯示提示語句
     if (!keyword) {
         message = '請輸入正確的關鍵字！';
         return res.render('index', { restaurants: null, keyword: req.query.keyword, message });
     }
 
-    // 若找無符合關鍵字的結果，則隨機推薦餐廳
-    if (restaurants.length === 0) {
-        message = `沒有找到符合關鍵字的結果，但您可能會喜歡：`;
-        const randomIDs = randomNums(1, restaurantList.results.length, 3);
-        const randomRestaurants = restaurantList.results.filter(restaurant => {
-            return randomIDs.includes(restaurant.id);
-        });
-        return res.render('index', { restaurants: randomRestaurants, keyword: req.query.keyword, message });
-    }
+    Restaurant.find({})
+        .lean()
+        .then(restaurants => {
+            const filteredRestaurants = restaurants.filter(restaurant => {
+                const restaurantName = restaurant.name.replace(/ /g, "").toLowerCase();
+                const restaurantEngName = restaurant.name_en.replace(/ /g, "").toLowerCase();
+                const restaurantCategory = restaurant.category.replace(/ /g, "").toLowerCase();
+                return restaurantName.includes(keyword) || restaurantEngName.includes(keyword) || restaurantCategory.includes(keyword);
+            });
 
-    // 顯示找到符合關鍵字的結果
-    message = `找到${restaurants.length}個符合關鍵字的結果`;
-    res.render('index', { restaurants, keyword: req.query.keyword, message });
+            // 若找無符合關鍵字的結果，則隨機推薦餐廳
+            if (filteredRestaurants.length === 0) {
+                message = `沒有找到符合關鍵字的結果，但您可能會喜歡：`;
+                // const randomIDs = randomNums(1, restaurants.length, 3);
+                // const randomRestaurants = restaurantList.results.filter(restaurant => {
+                //     return randomIDs.includes(restaurant.id);
+                // });
+                return res.render('index', { restaurants: null, keyword: req.query.keyword, message });
+            }
+
+            // 顯示找到符合關鍵字的結果
+            message = `找到${filteredRestaurants.length}個符合關鍵字的結果`;
+            res.render('index', { restaurants: filteredRestaurants, keyword: req.query.keyword, message });
+        })
+        .catch(err => console.log(err));
 });
 
 // start and listen on the Express server

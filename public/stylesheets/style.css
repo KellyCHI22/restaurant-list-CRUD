@@ -10,6 +10,15 @@ header {
     color: #226089;
 }
 
+.navbar .create-restaurant {
+    background-color: #4592af;
+    border: none;
+}
+
+.navbar .create-restaurant:hover {
+    background-color: #226089;
+}
+
 .banner {
     position: relative;
     z-index: -1;
