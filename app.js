@@ -6,6 +6,7 @@ const methodOverride = require('method-override');
 
 // require restaurant model
 const Restaurant = require('./models/restaurant');
+const routes = require('./routes');
 
 // mongoose stuff
 const mongoose = require('mongoose');
@@ -33,65 +34,7 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
-// routes setting
-app.get('/', (req, res) => {
-    Restaurant.find()
-        .lean()
-        .sort({ _id: 'asc' })
-        .then(restaurants => {
-            const message = `您的清單中有${restaurants.length}間餐廳`;
-            res.render('index', { restaurants, message });
-        })
-        .catch(error => console.error(error));
-});
-
-// show new page
-app.get('/restaurants/new', (req, res) => {
-    return res.render('new');
-});
-
-// create new restaurant
-app.post('/restaurants', (req, res) => {
-    return Restaurant.create(req.body)
-        .then(() => res.redirect('/'))
-        .catch(err => console.log(err));
-});
-
-// show restaurant by id
-app.get('/restaurants/:restaurant_id', (req, res) => {
-    const id = req.params.restaurant_id;
-    return Restaurant.findById(id)
-        .lean()
-        .then((restaurant) => res.render('show', { restaurant }))
-        .catch(error => console.log(error));
-});
-
-// show edit restaurant page
-app.get("/restaurants/:restaurant_id/edit", (req, res) => {
-    const id = req.params.restaurant_id;
-    return Restaurant.findById(id)
-        .lean()
-        .then(restaurant => res.render("edit", { restaurant }))
-        .catch(err => console.log(err));
-});
-
-// edit restaurant
-app.put('/restaurants/:restaurant_id', (req, res) => {
-    const id = req.params.restaurant_id;
-    return Restaurant.findByIdAndUpdate(id, req.body)
-        .lean()
-        .then(() => res.redirect(`/restaurants/${id}`))
-        .catch(error => console.log(error));
-});
-
-// delete restaurant
-app.delete('/restaurants/:restaurant_id', (req, res) => {
-    const id = req.params.restaurant_id;
-    return Restaurant.findById(id)
-        .then(restaurant => restaurant.remove())
-        .then(() => res.redirect('/'))
-        .catch(error => console.log(error));
-});
+app.use(routes);
 
 // todo not refactored yet
 // show search results 
