@@ -1,6 +1,6 @@
 <h1 class="mb-1 restaurant-show-title">修改餐廳資訊</h1>
-<div class="container" style="max-width:600px;">
-    <form action="/restaurants/{{ restaurant._id }}?_method=PUT" method="POST">
+<div class="container p-4 edit-form">
+    <form action="/restaurants/{{ restaurant._id }}?_method=PUT" method="POST" style="">
         <div class="mb-3">
             <input type="checkbox" name="isFavorite" id="isFavorite" {{#if restaurant.isFavorite}} checked {{/if}}>
             <label for="isFavorite">加入最愛</label>
@@ -60,7 +60,7 @@
             <button type="submit" class="btn btn-theme">
                 修改餐廳
             </button>
-            <button type="reset" class="btn btn-outline-danger">重新輸入</button>
+            <button type="reset" class="btn btn-danger">重新輸入</button>
         </div>
     </form>
 </div>

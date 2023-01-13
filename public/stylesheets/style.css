@@ -68,6 +68,13 @@ header {
     border-color: #ced4da;
 }
 
+.edit-form {
+    max-width: 600px;
+    background-color: #fce2cf;
+    border-radius: 1rem;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
 .card {
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
