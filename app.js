@@ -2,6 +2,7 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 
 // require restaurant model
 const Restaurant = require('./models/restaurant');
@@ -28,13 +29,15 @@ const port = 3000;
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 
 // routes setting
 app.get('/', (req, res) => {
     Restaurant.find()
         .lean()
+        .sort({ _id: 'asc' })
         .then(restaurants => {
             const message = `您的清單中有${restaurants.length}間餐廳`;
             res.render('index', { restaurants, message });
@@ -73,7 +76,7 @@ app.get("/restaurants/:restaurant_id/edit", (req, res) => {
 });
 
 // edit restaurant
-app.post('/restaurants/:restaurant_id/edit', (req, res) => {
+app.put('/restaurants/:restaurant_id', (req, res) => {
     const id = req.params.restaurant_id;
     return Restaurant.findByIdAndUpdate(id, req.body)
         .lean()
@@ -82,7 +85,7 @@ app.post('/restaurants/:restaurant_id/edit', (req, res) => {
 });
 
 // delete restaurant
-app.post('/restaurants/:restaurant_id/delete', (req, res) => {
+app.delete('/restaurants/:restaurant_id', (req, res) => {
     const id = req.params.restaurant_id;
     return Restaurant.findById(id)
         .then(restaurant => restaurant.remove())

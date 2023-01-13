@@ -44,7 +44,8 @@
                     </div>
                     <div class="card-footer">
                         <a class="btn btn-warning" href="/restaurants/{{ this._id }}/edit">編輯餐廳</a>
-                        <form action="/restaurants/{{ this._id }}/delete" method="POST" style="display: inline;">
+                        <form action="/restaurants/{{ this._id }}?_method=DELETE" method="POST"
+                            style="display: inline;">
                             <button class="btn btn-danger" type="submit" onclick="return confirmDelete()">刪除餐廳</button>
                         </form>
                     </div>
