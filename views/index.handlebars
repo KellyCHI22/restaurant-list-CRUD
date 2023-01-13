@@ -11,24 +11,7 @@
                         <button class="btn btn-major" type="submit" id="search-button"><i
                                 class="fas fa-search"></i></button>
                     </div>
-                    <div class="dropdown">
-                        <a class="btn btn-major dropdown-toggle mx-3" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            排序方式
-                        </a>
-
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/">預設排序</a></li>
-                            <li><a class="dropdown-item" href="/name">A -> Z</a></li>
-                            <li><a class="dropdown-item" href="/-name">Z -> A</a></li>
-                            <li><a class="dropdown-item" href="/category">類別</a></li>
-                            <li><a class="dropdown-item" href="/location">地區</a></li>
-                            <li><a class="dropdown-item" href="/rating">高評分優先</a></li>
-                            <li><a class="dropdown-item" href="/favorite">已加入最愛</a></li>
-                        </ul>
-                    </div>
                 </div>
-
             </form>
         </div>
     </div>
@@ -41,8 +24,25 @@
     <div class="message">{{message}}</div>
     <div class="row">
         <div class="col-md-10 col-12 mx-auto">
-            <div class="row row-cols-sm-3 justify-content-center" style="gap:20px;">
 
+            <div class="dropdown d-flex justify-content-end mb-3">
+                <a class="btn btn-major dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    排序方式
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/">預設排序</a></li>
+                    <li><a class="dropdown-item" href="/name">A -> Z</a></li>
+                    <li><a class="dropdown-item" href="/-name">Z -> A</a></li>
+                    <li><a class="dropdown-item" href="/category">類別</a></li>
+                    <li><a class="dropdown-item" href="/location">地區</a></li>
+                    <li><a class="dropdown-item" href="/rating">高評分優先</a></li>
+                    <li><a class="dropdown-item" href="/favorite">已加入最愛</a></li>
+                </ul>
+            </div>
+
+            <div class="row row-cols-sm-3 justify-content-center" style="gap:20px;">
                 {{#each restaurants}}
                 <div class="card p-0" style="max-width:300px;">
                     <a href="/restaurants/{{this._id}}" class="text-secondary"><img class="card-img-top"
