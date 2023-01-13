@@ -24,6 +24,7 @@
                             <li><a class="dropdown-item" href="/category">類別</a></li>
                             <li><a class="dropdown-item" href="/location">地區</a></li>
                             <li><a class="dropdown-item" href="/rating">高評分優先</a></li>
+                            <li><a class="dropdown-item" href="/favorite">已加入最愛</a></li>
                         </ul>
                     </div>
                 </div>
@@ -57,17 +58,24 @@
                             {{this.rating}}
                             <i class="fa fa-star fa-xs"></i>
                         </span>
+
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer p-2">
                         <a class="btn btn-theme" href="/restaurants/{{ this._id }}"><i class="fa fa-solid fa-eye"></i>
                             查看</a>
                         <a class="btn btn-theme" href="/restaurants/{{ this._id }}/edit"><i
                                 class="fa-regular fa-pen-to-square"></i> 編輯</a>
+                        <button class="btn btn-theme">
+                            <input type="checkbox" name="isFavorite" id="isFavorite" {{#if this.isFavorite}} checked
+                                {{/if}} disabled>
+                            <label for="isFavorite">最愛</label>
+                        </button>
                         <form action="/restaurants/{{ this._id }}?_method=DELETE" method="POST"
                             style="display: inline;">
                             <button class="btn btn-danger" type="submit" onclick="return confirmDelete()"><i
                                     class="fa fa-solid fa-trash"></i> 刪除</button>
                         </form>
+
                     </div>
                 </div>
                 </a>

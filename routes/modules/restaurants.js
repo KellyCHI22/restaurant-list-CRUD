@@ -35,7 +35,11 @@ router.get("/:restaurant_id/edit", (req, res) => {
 // edit restaurant
 router.put('/:restaurant_id', (req, res) => {
     const id = req.params.restaurant_id;
-    return Restaurant.findByIdAndUpdate(id, req.body)
+    const editedData = {
+        ...req.body,
+        isFavorite: req.body.isFavorite === 'on' ? true : false
+    };
+    return Restaurant.findByIdAndUpdate(id, editedData)
         .lean()
         .then(() => res.redirect(`/restaurants/${id}`))
         .catch(error => console.log(error));

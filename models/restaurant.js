@@ -37,6 +37,10 @@ const restaurantSchema = new Schema({
     description: {
         type: String,
         required: true
+    },
+    isFavorite: {
+        type: Boolean,
+        default: false  // 預設完成狀態為 false
     }
 });
 module.exports = mongoose.model('Restaurant', restaurantSchema);

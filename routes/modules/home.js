@@ -55,5 +55,15 @@ router.get('/rating', (req, res) => {
         .catch(error => console.error(error));
 });
 
+router.get('/favorite', (req, res) => {
+    Restaurant.find()
+        .lean()
+        .then(restaurants => {
+            const filteredRestaurants = restaurants.filter(restaurant => restaurant.isFavorite === true);
+            return res.render('index', { restaurants: filteredRestaurants });
+        })
+        .catch(error => console.error(error));
+});
+
 
 module.exports = router;
