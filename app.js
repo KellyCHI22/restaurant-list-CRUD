@@ -6,24 +6,10 @@ const methodOverride = require('method-override');
 
 // require restaurant model
 const Restaurant = require('./models/restaurant');
+// require routes
 const routes = require('./routes');
+// require mongoose
 require('./config/mongoose');
-
-// mongoose stuff
-// const mongoose = require('mongoose');
-// if (process.env.NODE_ENV !== 'production') {
-//     require('dotenv').config();
-// }
-// mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-// mongoose.set('strictQuery', true);
-
-// const db = mongoose.connection;
-// db.on('error', () => {
-//     console.log('mongodb error!');
-// });
-// db.once('open', () => {
-//     console.log('mongodb connected!');
-// });
 
 // app related stuff
 const app = express();
@@ -32,12 +18,12 @@ const port = 3000;
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 app.use(express.static('public'));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
-
 app.use(routes);
 
-// todo not refactored yet
+// todo search function not refactored yet
 // show search results 
 app.get('/search', (req, res) => {
     let message;

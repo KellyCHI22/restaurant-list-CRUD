@@ -3,7 +3,6 @@ const Restaurant = require('../restaurant');
 const restaurantData = require('../../restaurants.json').results;
 
 db.once('open', () => {
-    console.log('mongodb connected!');
     Restaurant.create(restaurantData)
         .then(() => {
             console.log('restaurantSeeder done!');
