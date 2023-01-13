@@ -12,7 +12,7 @@
                                 class="fas fa-search"></i></button>
                     </div>
                     <div class="dropdown">
-                        <a class="btn btn-warning dropdown-toggle mx-3" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="btn btn-major dropdown-toggle mx-3" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             排序方式
                         </a>
@@ -59,10 +59,14 @@
                         </span>
                     </div>
                     <div class="card-footer">
-                        <a class="btn btn-warning" href="/restaurants/{{ this._id }}/edit">編輯餐廳</a>
+                        <a class="btn btn-theme" href="/restaurants/{{ this._id }}"><i class="fa fa-solid fa-eye"></i>
+                            查看</a>
+                        <a class="btn btn-theme" href="/restaurants/{{ this._id }}/edit"><i
+                                class="fa-regular fa-pen-to-square"></i> 編輯</a>
                         <form action="/restaurants/{{ this._id }}?_method=DELETE" method="POST"
                             style="display: inline;">
-                            <button class="btn btn-danger" type="submit" onclick="return confirmDelete()">刪除餐廳</button>
+                            <button class="btn btn-danger" type="submit" onclick="return confirmDelete()"><i
+                                    class="fa fa-solid fa-trash"></i> 刪除</button>
                         </form>
                     </div>
                 </div>

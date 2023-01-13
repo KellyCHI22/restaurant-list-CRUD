@@ -34,10 +34,12 @@
                 {{restaurant.description}}
             </p>
 
-            <div>
-                <a class="btn btn-warning" href="/restaurants/{{ restaurant._id }}/edit">編輯餐廳</a>
+            <div class="mb-3">
+                <a class="btn btn-theme" href="/restaurants/{{ restaurant._id }}/edit"><i
+                        class="fa-regular fa-pen-to-square"></i> 編輯</a>
                 <form action="/restaurants/{{ restaurant._id }}?_method=DELETE" method="POST" style="display: inline;">
-                    <button class="btn btn-danger" type="submit" onclick="return confirmDelete()">刪除餐廳</button>
+                    <button class="btn btn-danger" type="submit" onclick="return confirmDelete()"><i
+                            class="fa fa-solid fa-trash"></i> 刪除</button>
                 </form>
             </div>
 
