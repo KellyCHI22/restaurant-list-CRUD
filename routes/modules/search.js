@@ -6,7 +6,7 @@ const Restaurant = require('../../models/restaurant');
 router.get('/', (req, res) => {
     let message;
     const keyword = req.query.keyword.replace(/ /g, "").toLowerCase();
-    // 若輸入為空白，則顯示提示語句
+    // if keyword is invalid, show notification 
     if (!keyword) {
         message = '請輸入正確的關鍵字！';
         return res.render('index', { restaurants: null, keyword: req.query.keyword, message });
@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
                 return restaurantName.includes(keyword) || restaurantEngName.includes(keyword) || restaurantCategory.includes(keyword);
             });
 
-            // 若找無符合關鍵字的結果，則隨機推薦餐廳
+            // if no matched results, show notification and recommend 3 random restaurants
             if (filteredRestaurants.length === 0) {
                 message = `沒有找到符合關鍵字的結果，但您可能會喜歡：`;
                 const randomIDs = randomNums(1, restaurants.length - 1, 3);
@@ -33,7 +33,7 @@ router.get('/', (req, res) => {
                 return res.render('index', { restaurants: randomRestaurants, keyword: req.query.keyword, message });
             }
 
-            // 顯示找到符合關鍵字的結果
+            // show matched results and notification
             message = `找到${filteredRestaurants.length}個符合關鍵字的結果`;
             res.render('index', { restaurants: filteredRestaurants, keyword: req.query.keyword, message });
         })
@@ -41,7 +41,7 @@ router.get('/', (req, res) => {
 });
 
 
-// 用來生成隨機數字陣列的函式
+// function for generating random numbers
 function randomNums(min, max, length) {
     const nums = [];
     while (nums.length < length) {

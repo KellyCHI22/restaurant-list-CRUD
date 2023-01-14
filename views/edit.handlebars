@@ -3,7 +3,7 @@
     <form action="/restaurants/{{ restaurant._id }}?_method=PUT" method="POST" style="">
         <div class="mb-3">
             <input type="checkbox" name="isFavorite" id="isFavorite" {{#if restaurant.isFavorite}} checked {{/if}}>
-            <label for="isFavorite">加入最愛</label>
+            <label for="isFavorite">加入最愛 </label>
         </div>
         <div class="mb-3">
             <label for="name" class="form-label">餐廳名稱(中文)<span class="text-danger">*</span></label>
@@ -58,9 +58,9 @@
         </div>
         <div class="text-center">
             <button type="submit" class="btn btn-theme">
-                修改餐廳
+                <i class="fa-solid fa-pen-to-square"></i> 修改餐廳
             </button>
-            <button type="reset" class="btn btn-danger">重新輸入</button>
+            <button type="reset" class="btn btn-danger"><i class="fa-solid fa-rotate-left"></i> 重新輸入</button>
         </div>
     </form>
 </div>

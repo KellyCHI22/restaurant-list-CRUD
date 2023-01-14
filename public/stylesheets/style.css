@@ -1,9 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;400;700&display=swap');
+
+body {
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
 header {
     overflow: hidden;
 }
 
 .btn {
     font-size: .8rem;
+}
+
+.btn-major {
+    background-color: #9b4b4b;
+    color: white;
+}
+
+.btn-theme {
+    background-color: #4592af;
+    color: white;
 }
 
 .navbar .navbar-brand {
@@ -53,15 +69,7 @@ header {
     font-size: 0.8rem;
 }
 
-.btn-major {
-    background-color: #9b4b4b;
-    color: white;
-}
 
-.btn-theme {
-    background-color: #4592af;
-    color: white;
-}
 
 .form-control:focus {
     box-shadow: none;
@@ -76,6 +84,7 @@ header {
 }
 
 .card {
+    max-width: 300px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 

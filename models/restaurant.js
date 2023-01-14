@@ -40,7 +40,7 @@ const restaurantSchema = new Schema({
     },
     isFavorite: {
         type: Boolean,
-        default: false  // 預設完成狀態為 false
+        default: false
     }
 });
 module.exports = mongoose.model('Restaurant', restaurantSchema);
