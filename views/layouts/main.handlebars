@@ -1,64 +1,80 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
     <title>My Restaurant List</title>
-    <link rel="shortcut icon"
-        href="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
-        type="image/x-icon">
-    <script src="https://kit.fontawesome.com/e4b9cb38f0.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/stylesheets/bootstrap.css">
-    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link
+      rel='shortcut icon'
+      href='https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png'
+      type='image/x-icon'
+    />
+    <script
+      src='https://kit.fontawesome.com/e4b9cb38f0.js'
+      crossorigin='anonymous'
+    ></script>
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
 
-</head>
+  </head>
 
-<body>
+  <body>
 
     <header>
-        <!-- navigation -->
-        <nav class="navbar navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand" href="/">
-                    <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
-                        width="30" height="30" class="d-inline-block align-top" alt="好。吃">
-                    我的餐廳清單
-                </a>
-                <a class="btn btn-primary create-restaurant" href="/restaurants/new"><i class="fa fa-solid fa-plus"></i>
-                    新增餐廳</a>
+      <!-- navigation -->
+      <nav class='navbar navbar-light bg-light'>
+        <div class='container'>
+          <a class='navbar-brand' href='/'>
+            <img
+              src='https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png'
+              width='30'
+              height='30'
+              class='d-inline-block align-top'
+              alt='好。吃'
+            />
+            我的餐廳清單
+          </a>
+          {{#if isAuthenticated}}
+            <div>
+              <a
+                class='btn btn-primary create-restaurant'
+                href='/restaurants/new'
+              ><i class='fa fa-solid fa-plus'></i>
+                新增餐廳</a>
+              <a href='/users/logout' class='btn btn-theme'>登出</a>
             </div>
+          {{else}}
+            <a href='/users/login' class='btn btn-theme'>登入</a>
+          {{/if}}
+        </div>
 
-        </nav>
+      </nav>
 
-        <div class="banner"></div>
+      <div class='banner'></div>
     </header>
 
     <!-- partial templates will replace the part of "body" here -->
-    {{{ body }}}
+    {{{body}}}
 
-    <footer class="bg-light text-center text-lg-start mt-5">
-        <!-- Copyright -->
-        <div class="text-white text-center p-3" style="background-color: #6bb8d4;">
-            我的餐廳清單 © 2023 All rights reserved
-        </div>
-        <!-- Copyright -->
+    <footer class='bg-light text-center text-lg-start mt-5'>
+      <!-- Copyright -->
+      <div
+        class='text-white text-center p-3'
+        style='background-color: #6bb8d4;'
+      >
+        我的餐廳清單 © 2023 All rights reserved
+      </div>
+      <!-- Copyright -->
     </footer>
 
-    <script src="/javascripts/popper.js"></script>
-    <script src="/javascripts/bootstrap.js"></script>
+    <script src='/javascripts/popper.js'></script>
+    <script src='/javascripts/bootstrap.js'></script>
     <script>
-        function confirmDelete() {
-            const result = confirm('確定刪除該餐廳？');
-            if (result) {
-                alert('已刪除該餐廳！');
-                return true;
-            } else {
-                return false;
-            }
-        }
+      function confirmDelete() { const result = confirm('確定刪除該餐廳？'); if
+      (result) { alert('已刪除該餐廳！'); return true; } else { return false; }
+      }
     </script>
-</body>
+  </body>
 
 </html>
