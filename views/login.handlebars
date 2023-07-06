@@ -1,7 +1,8 @@
 <div class='row mt-5'>
   <div class='col-md-6 m-auto'>
-    <div class='card card-body m-auto'>
+    <div class='card card-body card-form m-auto'>
       <h1 class='text-center mt-3'>登入餐廳清單</h1>
+      {{> message}}
       {{! handlebars 看到 > 會去找 partials 檔案 }}
       <form action='/users/login' method='POST'>
         <div class='mb-3'>
