@@ -1,4 +1,4 @@
-# My Restaurant List 2.0 我的餐廳清單 2.0
+# My Restaurant List 3.0 我的餐廳清單 3.0
 
 ## 💡 Overview 介紹
 
@@ -14,22 +14,39 @@
 - 若查無符合關鍵字的結果，會隨機推薦三個餐廳給使用者
 
 #### 2.0 版本新增功能
+
 - 點擊「新增餐廳」可新增餐廳資訊，包含類別、圖片、文字描述等等
 - 點擊「編輯」按鈕可進入編輯頁面，編輯餐廳資訊
 - 使用者可在編輯頁面將餐廳加入最愛
 - 點擊「刪除」可將餐廳資訊刪除，並在刪除前跳出確認提示
 - 可在首頁選擇餐廳排序方式，包含：A-Z、類別、評分、已加入最愛等等
 
+#### 3.0 版本新增功能
+
+- 新使用者可註冊帳號，若填寫錯誤會出現提示訊息
+- 完成註冊後即可登入使用
+- 每個使用者都有專屬於自己的餐廳清單
+
 ### 👀 Screenshots 頁面截圖
+
 #### 首頁
+
 ![](public/screenshots/screenrecord_1.gif)
+
 #### 顯示餐廳頁面
+
 ![](public/screenshots/screenshot_1.jpg)
+
 #### 新增餐廳頁面
+
 ![](public/screenshots/screenrecord_2.gif)
+
 #### 編輯餐廳頁面
+
 ![](public/screenshots/screenrecord_3.gif)
+
 #### 刪除前顯示提示
+
 ![](public/screenshots/screenshot_2.jpg)
 
 ## 🚀 Getting Started 開始使用
@@ -41,55 +58,77 @@
 ```bash
 $ git clone "https://github.com/KellyCHI22/restaurant_list.git"
 ```
+
 2. 在本地開啟之後，透過終端機進入資料夾，輸入：
 
 ```bash
 $ npm install
 ```
 
-3. 安裝完畢後，輸入以下指令產生種子資料：
+3. 新增 `.env` 檔案，存放 MONGODB_URI 以及 SESSION_SECRET，請參照 `.env.example`
+
+4. 安裝完畢後，輸入以下指令產生種子資料：
 
 ```bash
 $ npm run seed
 ```
+
 若看見以下訊息，表示種子資料已產生完畢。
+
 ```bash
-restaurantSeeder done!
+Seed data created!
 ```
 
-4. 種子資料產生後，繼續輸入：
+5. 種子資料產生後，繼續輸入：
 
 ```bash
 $ npm run start
 ```
 
-5. 若看見此訊息代表程式已順利運行，打開瀏覽器輸入網址：`http://localhost:3000` 即可進入網站
+6. 若看見此訊息代表程式已順利運行，打開瀏覽器輸入網址：`http://localhost:3000` 即可進入網站
 
 ```bash
 Express is listening on http://localhost:3000
 ```
 
-6. 若要暫停使用，可在終端機入入以下指令：
+7. 若要使用測試帳號登入，請輸入以下帳號密碼：
+
+```
+email : user1@example.com
+password : 12345678
+```
+
+8. 若要暫停使用，可在終端機入入以下指令：
 
 ```bash
 ctrl + c
 ```
+
 ## ✅ What I learned 學習重點
-* 用 Express 建立一個簡單的網路應用程式
-* 完成 CRUD 功能與路由設計
-* 建立 Express & MongoDB 的連線
-* 建立 seeder 檔案，載入種子資料
-* 透過 body-parser 從 POST 方法的路由中取得資料
-* 運用 Express.Router，將路由從 app.js 分離獨立
-* 正確使用 Mongoose 提供的 model 操作方法
+
+- 用 Express 建立一個簡單的網路應用程式
+- 完成 CRUD 功能與路由設計
+- 建立 Express & MongoDB 的連線
+- 建立 seeder 檔案，載入種子資料
+- 透過 body-parser 從 POST 方法的路由中取得資料
+- 運用 Express.Router，將路由從 app.js 分離獨立
+- 正確使用 Mongoose 提供的 model 操作方法
+- 使用 Passport 打造註冊功能
+- 使用 bcrypt 套件保護使用者的密碼
+- 打造「使用者認證」的基本體驗，包括動線、邏輯、資料設計以及例外處理
 
 ## 💻 Technologies 開發環境與工具
 
 - node.js 14.16.0
 - express 4.16.4
 - express-handlebars 3.0.0
+- express-session 1.17.3
+- bcryptjs 2.4.3
 - body-parser 1.20.1
+- connect-flash 0.1.1
 - method-override 3.0.0
+- passport 0.4.1
+- passport-local 1.0.0
 - mongoose 6.8.3
 - nodemon 2.0.20
 - dotenv 16.0.3

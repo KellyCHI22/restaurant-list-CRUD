@@ -4,7 +4,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 mongoose.set('strictQuery', false);
-console.log(process.env.MONGODB_URI);
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
